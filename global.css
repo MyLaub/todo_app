@@ -1,0 +1,48 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: white;
+  padding: 4rem 4rem 4rem 4rem;
+}
+
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 100;
+}
+
+h3 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 100;
+}
+
+.list {
+  align-items: left;
+  justify-content: left;
+  text-align: left;
+}
+
+.container {
+  display: grid; /* aktiverer grid */
+  grid-template-columns: 1fr 1fr; /* to kolonner, lige brede */
+  gap: 20px; /* afstand mellem kolonner */
+  align-items: stretch; /* sørger for at alle børn strækkes lige højt */
+}
+
+.controls,
+.list {
+  background: #fff; /* hvid baggrund */
+  border-radius: 12px; /* afrundede hjørner */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* blød skygge */
+  padding: 30px; /* luft indeni */
+  border: none; /* ingen grå kant */
+  display: flex; /* gør det muligt at styre indholdet */
+  flex-direction: column; /* stablet lodret indhold */
+}

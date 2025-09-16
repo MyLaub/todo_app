@@ -1,0 +1,38 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do App</title>
+    <script type="module" src="js.js"></script>
+    <link rel="stylesheet" href="global.css" />
+  </head>
+  <body>
+    <h1>To Do App</h1>
+    <div class="container">
+      <div class="controls">
+        <h2>Choose your type of reminder:</h2>
+        <select name="Choose type" id="dropdown">
+          <option value="Personal">Personal</option>
+          <option value="Work">Work</option>
+          <option value="School">School</option>
+        </select>
+        <h2>Add task:</h2>
+        <div>
+          <input class="todoinput" type="text" placeholder="Add task here..." />
+          <button type="submit">Add</button>
+        </div>
+      </div>
+      <div class="list">
+        <h3>To do:</h3>
+        <ul id="todoList">
+          <!-- <li>
+            <input type="checkbox" />
+            <label for="">Task 1</label>
+          </li> -->
+        </ul>
+        <h3>Done:</h3>
+        <ul id="todoDone"></ul>
+      </div>
+    </div>
+  </body>
+</html>
