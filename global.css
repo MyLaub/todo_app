@@ -1,48 +1,200 @@
+/* generel styling */
+:root {
+  --bg: #f6f7fb;
+  --text: black;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --btncolor: green;
+  --btn-contrast: #ffffff;
+  --delete: #ef4444;
+  --radius: 14px;
+  --shadow: 0 8px 30px rgba(17, 24, 39, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
 body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Helvetica;
+  background: var(--bg);
+  color: black;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  background-color: white;
-  padding: 4rem 4rem 4rem 4rem;
+  padding: 48px 24px;
 }
 
 h1 {
-  font-family: Arial, Helvetica, sans-serif;
+  width: min(1024px, 100%);
+  margin: 0 auto 24px;
+  padding: 40px 24px;
+  background: var(--card);
+  color: black;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius));
+  box-shadow: var(--shadow);
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.2;
 }
 
-h2 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 100;
+/* streg under overskrift styling */
+h1::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  margin: 5px auto 0;
+  border-radius: 999px;
+  background: var(--btncolor);
+  opacity: 0.9;
 }
 
+h2,
 h3 {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 100;
+  font-size: 1.3rem;
+  margin: 38px 0 5px;
+  font-weight: 400;
+  color: black;
 }
 
-.list {
-  align-items: left;
-  justify-content: left;
-  text-align: left;
-}
-
+/* layout */
 .container {
-  display: grid; /* aktiverer grid */
-  grid-template-columns: 1fr 1fr; /* to kolonner, lige brede */
-  gap: 20px; /* afstand mellem kolonner */
-  align-items: stretch; /* sørger for at alle børn strækkes lige højt */
+  width: min(1024px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
 }
 
 .controls,
 .list {
-  background: #fff; /* hvid baggrund */
-  border-radius: 12px; /* afrundede hjørner */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* blød skygge */
-  padding: 30px; /* luft indeni */
-  border: none; /* ingen grå kant */
-  display: flex; /* gør det muligt at styre indholdet */
-  flex-direction: column; /* stablet lodret indhold */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 10px 24px 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* “Add task” række */
+.controls > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+/* input + knapper design */
+select,
+input[type="text"] {
+  font-weight: 200;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: white;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+/* ADD knap */
+button {
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid var(--btncolor);
+  background: var(--btncolor);
+  color: var(--btn-contrast);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.05s, filter 0.15s, box-shadow 0.15s;
+}
+button:hover {
+  filter: brightness(1.05);
+}
+
+/* SLET knap */
+.delete-btn {
+  height: 32px;
+  padding: 0 10px;
+  margin-left: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-weight: 500;
+}
+.delete-btn:hover {
+  border-color: #fecaca;
+  color: var(--delete);
+  background: #fff1f2;
+}
+
+/* lister */
+.list ul {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+/* Tom-liste placeholder design */
+#todoList:empty::before {
+  content: "No tasks yet";
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 100;
+}
+#todoDone:empty::before {
+  content: "Nothing done yet";
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 100;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  transition: background 0.2s, border-color 0.2s, transform 0.05s;
+}
+li:hover {
+  border-color: #d1d5db;
+  background: #fafafa;
+}
+
+/* Checkbox og label */
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--btncolor);
+}
+input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+label {
+  font-weight: 200;
+}
+
+@media (max-width: 820px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
 }

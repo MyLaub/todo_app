@@ -5,7 +5,13 @@ const todoDone = document.querySelector("#todoDone");
 
 button.addEventListener("click", addTask);
 
-const tasks = []; // starter tomt
+// ---------- LOCALSTORAGE: LOAD VED START ----------
+// Læs fra localStorage (som tekst), eller brug "[]", og parse til array
+let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+
+renderTasks();
+
+// const tasks = [];
 
 function addTask() {
   const text = input.value.trim(); // læs teksten fra input
@@ -21,6 +27,7 @@ function addTask() {
   };
 
   tasks.push(task); // gem i array
+  saveTasks();
   renderTasks(); // tegn listen igen
   input.value = ""; // ryd inputfelt
 }
@@ -30,12 +37,16 @@ function renderTasks() {
   todoList.innerHTML = ""; // ryd TODO-liste
   todoDone.innerHTML = ""; // ryd DONE-liste
   tasks.forEach((task) => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-
     // for hver opgave
     const li = document.createElement("li"); // lav et li
     const checkbox = document.createElement("input"); //her laver den input
     const label = document.createElement("label"); //lav label
+
+    //Delete knap
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete task";
+    deleteBtn.classList.add("delete-btn"); // <-- giver en klasse til styling
+    deleteBtn.addEventListener("click", () => deleteTask(task.id));
 
     label.textContent = `${task.type}: ${task.text}`;
     checkbox.type = "checkbox"; //det input der bliver lavet, er defineret til at være checkbox.
@@ -43,6 +54,7 @@ function renderTasks() {
 
     checkbox.addEventListener("change", () => {
       task.done = checkbox.checked;
+      saveTasks();
       renderTasks();
     });
 
@@ -51,6 +63,7 @@ function renderTasks() {
     // Append
     li.appendChild(checkbox);
     li.appendChild(label);
+    li.appendChild(deleteBtn);
 
     todoList.appendChild(li); // læg det i ul
 
@@ -60,4 +73,17 @@ function renderTasks() {
       todoList.appendChild(li);
     } // når den får kategorien done, vil den blive flyttet til todoDone. men hvornår ved den at den er done?
   });
+}
+
+function deleteTask(id) {
+  const index = tasks.findIndex((t) => t.id === id); // find den klikkede opgaves index
+  if (index > -1) {
+    tasks.splice(index, 1); // fjern netop den
+    saveTasks();
+    renderTasks(); // opdater DOM
+  }
+}
+
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasks)); // setItem("tasks", "...json...")
 }
