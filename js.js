@@ -5,17 +5,13 @@ const todoDone = document.querySelector("#todoDone");
 
 button.addEventListener("click", addTask);
 
-// ---------- LOCALSTORAGE: LOAD VED START ----------
-// Læs fra localStorage (som tekst), eller brug "[]", og parse til array
 let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
 
 renderTasks();
 
-// const tasks = [];
-
 function addTask() {
   const text = input.value.trim(); // læs teksten fra input
-  if (text === "") return; // hvis tom, stop
+  if (text === "") return; // hvis input er tom
 
   const type = document.querySelector("#dropdown").value; //den lytter til værdien af dropdrown
 
@@ -27,8 +23,8 @@ function addTask() {
   };
 
   tasks.push(task); // gem i array
-  saveTasks();
-  renderTasks(); // tegn listen igen
+  saveTasks(); // gem i localstorage
+  renderTasks(); // skriv listen igen
   input.value = ""; // ryd inputfelt
 }
 
@@ -45,7 +41,7 @@ function renderTasks() {
     //Delete knap
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete task";
-    deleteBtn.classList.add("delete-btn"); // <-- giver en klasse til styling
+    deleteBtn.classList.add("delete-btn"); // giver en klasse til styling
     deleteBtn.addEventListener("click", () => deleteTask(task.id));
 
     label.textContent = `${task.type}: ${task.text}`;
@@ -58,20 +54,16 @@ function renderTasks() {
       renderTasks();
     });
 
-    // li.textContent = task.text; // skriv teksten
-
     // Append
     li.appendChild(checkbox);
     li.appendChild(label);
     li.appendChild(deleteBtn);
 
-    todoList.appendChild(li); // læg det i ul
-
     if (task.done) {
       todoDone.appendChild(li);
     } else {
       todoList.appendChild(li);
-    } // når den får kategorien done, vil den blive flyttet til todoDone. men hvornår ved den at den er done?
+    } // når den får kategorien done, vil den blive flyttet til todoDone.
   });
 }
 
@@ -85,5 +77,5 @@ function deleteTask(id) {
 }
 
 function saveTasks() {
-  localStorage.setItem("tasks", JSON.stringify(tasks)); // setItem("tasks", "...json...")
+  localStorage.setItem("tasks", JSON.stringify(tasks)); // gemmer tasks array i json streng
 }
